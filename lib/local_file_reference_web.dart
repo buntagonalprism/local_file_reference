@@ -2,6 +2,8 @@ import 'dart:html' as html;
 
 import 'dart:typed_data';
 
+import 'package:flutter/widgets.dart';
+
 import 'local_file_reference.dart';
 
 class LocalFileReferenceImpl implements LocalFileReference {
@@ -16,4 +18,14 @@ class LocalFileReferenceImpl implements LocalFileReference {
   String get localFilePath => identifier;
 
   Future<int> get length => Future<int>.value(bytes.lengthInBytes);
+
+  @override
+  Widget asImageWidget({double height, double width, BoxFit fit}) {
+    return Image.memory(
+      bytes,
+      height: height,
+      width: width,
+      fit: fit,
+    );
+  }
 }

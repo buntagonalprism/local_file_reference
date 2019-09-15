@@ -30,6 +30,10 @@ class LocalFileReferencePlugin {
     return identifier;
   }
 
+  static html.File getLocalFileByIdentifier(String identifier) {
+    return _files[identifier];
+  }
+
   Future<dynamic> onMethodCall(MethodCall call) {
     try {
       switch (call.method) {

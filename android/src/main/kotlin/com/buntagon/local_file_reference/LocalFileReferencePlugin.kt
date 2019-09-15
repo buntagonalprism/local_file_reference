@@ -11,7 +11,7 @@ class LocalFileReferencePlugin: MethodCallHandler {
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "com.buntagon:local_file_reference")
+      val channel = MethodChannel(registrar.messenger(), "com.buntagon/local_file_reference")
       channel.setMethodCallHandler(LocalFileReferencePlugin())
     }
   }

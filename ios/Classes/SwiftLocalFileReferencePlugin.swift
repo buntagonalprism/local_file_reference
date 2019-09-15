@@ -3,7 +3,7 @@ import UIKit
 
 public class SwiftLocalFileReferencePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "com.buntagon:local_file_reference", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "com.buntagon/local_file_reference", binaryMessenger: registrar.messenger())
     let instance = SwiftLocalFileReferencePlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }

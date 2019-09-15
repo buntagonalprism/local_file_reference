@@ -12,7 +12,7 @@ class LocalFileReference {
       : assert(path != null),
         this.originalFileName = originalFileName ?? path.split('/').last;
 
-  static const MethodChannel _channel = const MethodChannel('com.buntagon:local_file_reference');
+  static const MethodChannel _channel = const MethodChannel('com.buntagon/local_file_reference');
 
   Future<Uint8List> retrieveData() async {
     if (_data == null) {
@@ -21,9 +21,11 @@ class LocalFileReference {
     return Future.value(_data);
   }
 
+  bool get hasRetrievedData => _data != null;
+
   Uint8List get data {
     if (_data == null) {
-      throw "";
+      throw "Data has not been retrieved. Await file.retrieveData() to ensure data has been loaded and check file.hasRetrievedData";
     }
     return data;
   }

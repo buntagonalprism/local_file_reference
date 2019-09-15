@@ -1,5 +1,14 @@
-# Local File Reference
+# local_file_reference
 
-Abstract reference to a local file on either mobile or web platforms for cross-platform file manipulations
+A reference to a local file, supporting both flutter web and mobile
 
-Intended to be used as a return data type by plugins that target file manipulations on web or mobile to provide a common file specification.
+## Getting Started
+
+This project is a starting point for a Flutter
+[plug-in package](https://flutter.dev/developing-packages/),
+a specialized package that includes platform-specific implementation code for
+Android and/or iOS.
+
+For help getting started with Flutter, view our 
+[online documentation](https://flutter.dev/docs), which offers tutorials, 
+samples, guidance on mobile development, and a full API reference.

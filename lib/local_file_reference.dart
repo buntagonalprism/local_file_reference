@@ -16,7 +16,7 @@ class LocalFileReference {
 
   Future<Uint8List> retrieveData() async {
     if (_data == null) {
-      _data = await _channel.invokeMethod('getData');
+      _data = await _channel.invokeMethod('getData', {'path': path});
     }
     return Future.value(_data);
   }

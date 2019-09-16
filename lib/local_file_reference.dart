@@ -27,6 +27,6 @@ class LocalFileReference {
     if (_data == null) {
       throw "Data has not been retrieved. Await file.retrieveData() to ensure data has been loaded and check file.hasRetrievedData";
     }
-    return data;
+    return _data;
   }
 }

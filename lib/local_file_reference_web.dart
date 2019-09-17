@@ -56,13 +56,14 @@ class LocalFileReferencePlugin {
     }
   }
 
-  Future<Uint8List> _getData(String fileIdentifier) {
+  Future<Map<dynamic, dynamic>> _getData(String fileIdentifier) {
     final file = _files[fileIdentifier];
-    final completer = Completer<Uint8List>();
+    final completer = Completer<Map<dynamic, dynamic>>();
 
     html.FileReader reader = html.FileReader();
     reader.onLoad.listen((fileEvent) {
-      completer.complete(reader.result);
+      final objectUrl = html.Url.createObjectUrl(reader.result);
+      completer.complete({'data': reader.result, 'objectUrl': objectUrl});
     });
     reader.onError.listen((error) {
       // Handle the error

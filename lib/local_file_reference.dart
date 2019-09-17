@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 class LocalFileReference {
   final String path;
   final String originalFileName;
   Uint8List _data;
+  String _objectUrl;
 
   LocalFileReference(this.path, {String originalFileName})
       : assert(path != null),
@@ -16,7 +18,14 @@ class LocalFileReference {
 
   Future<Uint8List> retrieveData() async {
     if (_data == null) {
-      _data = await _channel.invokeMethod('getData', {'path': path});
+      final result = await _channel.invokeMethod('getData', {'path': path});
+      if (result is Uint8List) {
+        _data = result;
+      } else {
+        final resultMap = Map.from(result);
+        _data = resultMap['data'];
+        _objectUrl = resultMap['objectUrl'];
+      }
     }
     return Future.value(_data);
   }
@@ -28,5 +37,19 @@ class LocalFileReference {
       throw "Data has not been retrieved. Await file.retrieveData() to ensure data has been loaded and check file.hasRetrievedData";
     }
     return _data;
+  }
+
+  /// Data must be loaded before this image provider can be retrieved. 
+  /// Image.memory(file.data) does not work on web - use this image provider
+  /// instead - retireving data first. 
+  ImageProvider get imageProvider {
+    if (_data == null) {
+      throw "Data has not been retrieved. Await file.retrieveData() to ensure data has been loaded and check file.hasRetrievedData";
+    }
+    if (_objectUrl != null) {
+      return NetworkImage(_objectUrl);
+    } else {
+      return MemoryImage(_data);
+    }
   }
 }

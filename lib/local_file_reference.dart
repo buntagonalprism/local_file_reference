@@ -32,19 +32,12 @@ class LocalFileReference {
 
   bool get hasRetrievedData => _data != null;
 
-  Uint8List get data {
-    if (_data == null) {
-      throw "Data has not been retrieved. Await file.retrieveData() to ensure data has been loaded and check file.hasRetrievedData";
-    }
-    return _data;
-  }
-
   /// Data must be loaded before this image provider can be retrieved. 
   /// Image.memory(file.data) does not work on web - use this image provider
   /// instead - retireving data first. 
   ImageProvider get imageProvider {
     if (_data == null) {
-      throw "Data has not been retrieved. Await file.retrieveData() to ensure data has been loaded and check file.hasRetrievedData";
+      throw "Data has not been retrieved. Await file.retrieveData() to ensure data has been loaded and check file.hasRetrievedData before accessing imageProvider";
     }
     if (_objectUrl != null) {
       return NetworkImage(_objectUrl);

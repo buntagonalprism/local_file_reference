@@ -62,7 +62,7 @@ class LocalFileReferencePlugin {
 
     html.FileReader reader = html.FileReader();
     reader.onLoad.listen((fileEvent) {
-      final blob = html.Blob([reader.result], type: "octet/stream");
+      final blob = html.Blob([reader.result], "octet/stream");
       final objectUrl = html.Url.createObjectUrl(blob);
       completer.complete({'data': reader.result, 'objectUrl': objectUrl});
     });

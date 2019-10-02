@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:html' as html;
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -39,7 +38,8 @@ class LocalFileReferencePlugin {
       switch (call.method) {
         case "getData":
           return _getData(call.arguments['path']);
-          break;
+        case "isWeb":
+          return Future.value(true);
         default:
           throw PlatformException(
               code: 'Unimplemented',

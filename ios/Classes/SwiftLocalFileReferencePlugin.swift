@@ -14,10 +14,9 @@ public class SwiftLocalFileReferencePlugin: NSObject, FlutterPlugin {
         let arguments = call.arguments as! Dictionary<String, AnyObject>
         let filePath = arguments["path"] as! String
         if let data = NSData(contentsOfFile: filePath) {
-          var buffer = [UInt8](count: data.length, repeatedValue: 0)
+          var buffer :Array<UInt8> = Array(count: data.length, repeating: 0)
           data.getBytes(&buffer, length: data.length)
-          bytes = buffer
-          result(bytes)
+          result(buffer)
         } else {
           result(FlutterError(code: "FILE_READ_ERROR", message: "The file data could not be read.", details: nil))
         }

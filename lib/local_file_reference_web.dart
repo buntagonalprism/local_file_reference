@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:html' as html;
+import 'dart:js' as js;
 
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -61,15 +62,15 @@ class LocalFileReferencePlugin {
     final completer = Completer<Map<dynamic, dynamic>>();
 
     html.FileReader reader = html.FileReader();
-    reader.onLoad.listen((fileEvent) {
+    reader.onLoad.listen(js.allowInterop((fileEvent) {
       final blob = html.Blob([reader.result], "octet/stream");
       final objectUrl = html.Url.createObjectUrl(blob);
       completer.complete({'data': reader.result, 'objectUrl': objectUrl});
-    });
-    reader.onError.listen((error) {
+    }));
+    reader.onError.listen(js.allowInterop((error) {
       // Handle the error
       completer.complete(null);
-    });
+    }));
     reader.readAsArrayBuffer(file);
     return completer.future;
   }

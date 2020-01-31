@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:local_file_reference/local_file_reference.dart';
@@ -9,7 +11,7 @@ void main() {
 
   setUp(() {
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return '42';
+      return Uint8List.fromList(<int>[3, 5, 9]);
     });
   });
 
@@ -17,7 +19,8 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await LocalFileReference.platformVersion, '42');
+  test('getData', () async {
+    final file = LocalFileReference('hello/file');
+    expect((await file.retrieveData()), Uint8List.fromList(<int>[3, 5, 9]));
   });
 }
